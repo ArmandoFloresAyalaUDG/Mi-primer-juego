@@ -7,6 +7,8 @@ public class Disparo : MonoBehaviour
 
     private MovimientoJugador movimientoJugador;
     private Animator animator;
+    private float cadencia = 0.3f;
+    private float proximoDisparo = 0f;
 
     void Start()
     {
@@ -16,9 +18,10 @@ public class Disparo : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time >= proximoDisparo)
         {
             Disparar();
+            proximoDisparo = Time.time + cadencia;
         }
     }
 
