@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GestorMonedas : MonoBehaviour
 {
@@ -24,7 +25,9 @@ public class GestorMonedas : MonoBehaviour
     private void Start()
     {
         // Cargar monedas guardadas al iniciar
-        totalMonedas = PlayerPrefs.GetInt("Monedas", 0);
+        totalMonedas = 0;
+        PlayerPrefs.SetInt("Monedas", 0);
+        PlayerPrefs.Save();
         ActualizarTexto();
     }
 
@@ -34,6 +37,12 @@ public class GestorMonedas : MonoBehaviour
         PlayerPrefs.SetInt("Monedas", totalMonedas);
         PlayerPrefs.Save();
         ActualizarTexto();
+        if (totalMonedas >= 20)
+        {
+            PlayerPrefs.SetInt("Monedas", 0);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("EscenaVictoria");
+        }
     }
 
     private void ActualizarTexto()
