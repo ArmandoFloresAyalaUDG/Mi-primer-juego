@@ -41,6 +41,11 @@ public class MovimientoJugador : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            animator.SetTrigger("disparar");
+        }
     }
 
     void Flip()
