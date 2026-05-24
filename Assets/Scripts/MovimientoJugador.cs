@@ -14,6 +14,7 @@ public class MovimientoJugador : MonoBehaviour
     private Rigidbody2D rb;
     private bool enSuelo;
     private Animator animator;
+    public bool mirandoDerecha = true;
 
     void Start()
     {
@@ -33,9 +34,20 @@ public class MovimientoJugador : MonoBehaviour
 
         animator.SetFloat("velocidad", Mathf.Abs(movimiento));
 
+        if (movimiento > 0f && !mirandoDerecha) Flip();
+        if (movimiento < 0f && mirandoDerecha) Flip();
+
         if (Input.GetKeyDown(KeyCode.W) && enSuelo)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
         }
+    }
+
+    void Flip()
+    {
+        mirandoDerecha = !mirandoDerecha;
+        Vector3 escala = transform.localScale;
+        escala.x *= -1;
+        transform.localScale = escala;
     }
 }
