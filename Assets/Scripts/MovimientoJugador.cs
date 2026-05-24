@@ -13,25 +13,26 @@ public class MovimientoJugador : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool enSuelo;
+    private Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        // Detectar si está en el suelo
         enSuelo = Physics2D.OverlapCircle(puntoSuelo.position, radioSuelo, capaSuelo);
 
-        // Movimiento horizontal
         float movimiento = 0f;
         if (Input.GetKey(KeyCode.A)) movimiento = -1f;
         if (Input.GetKey(KeyCode.D)) movimiento = 1f;
 
         rb.linearVelocity = new Vector2(movimiento * velocidad, rb.linearVelocity.y);
 
-        // Salto
+        animator.SetFloat("velocidad", Mathf.Abs(movimiento));
+
         if (Input.GetKeyDown(KeyCode.W) && enSuelo)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
